@@ -22,9 +22,9 @@ Mis en place de statistiques sur le temps lié à la compléxité des recherches
 
 Statistiques sur :
 
-- Recherche par index
-- Recherche Linéaire/Séquentiel
-- Recherche directement dans le fichier 
+- Recherche par index dans l'arbre
+- Recherche séquentiel dans l'arbre (en mémoire via l'arbre)
+- Recherche directement dans le fichier (accès aux fichier)
 
 Tous les temps sont en miliseconde. Le programme des stats est le main situé dans la classe StatIndex. 
 
