@@ -24,7 +24,7 @@ Statistiques sur :
 
 - Recherche par index dans l'arbre
 - Recherche séquentiel dans l'arbre (en mémoire via l'arbre)
-- Recherche directement dans le fichier (accès aux fichier)
+- Recherche directement dans le fichier (accès au fichier)
 
 Tous les temps sont en miliseconde. Le programme des stats est le main situé dans la classe StatIndex. 
 
