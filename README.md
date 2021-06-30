@@ -29,7 +29,7 @@ Statistiques sur :
 - Recherche séquentiel dans l'arbre (en mémoire via l'arbre)
 - Recherche directement dans le fichier (accès au fichier)
 
-Tous les temps sont en miliseconde, les indexes pour la recherche sont tirés de façon aléatoire. Le programme des stats est le main situé dans la classe StatIndex. 
+Tous les temps sont en miliseconde, les indexes pour la recherche sont tirés de façon aléatoire. Le programme des stats est le main situé dans la classe StatIndex. La recherche à été faite avec des keys GUID en chaîne de charactères associés à une valeur étant l'index dans le fichier.  
 
 Il est soit possible d'éxecuter :
 
