@@ -11,11 +11,15 @@
 
 ## Partie 1 : Evaluation d’un SGBD relationnel du marché
 
-Rapport : 
+Rapport dans le dossier : ./Rapport 
+
+## Exercices
+
+Dans le dossier : ./Exercice
 
 ## Partie 2 : Projetsur  les  thématiques  liées  à l’indexation et la recherche
 
-Projet dans le dossier : java-project
+Projet dans le dossier : ./ProjetJava/java-project
 
 Implémentation B+ tree avec noeud (contenant les keys) et feuilles (association des keys avec valeur). Chaque feuille ayant une référence sur la feuille suivante pour permettre une recherche séquentielle. 
 
