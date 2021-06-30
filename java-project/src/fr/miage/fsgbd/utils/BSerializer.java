@@ -1,12 +1,12 @@
 package fr.miage.fsgbd.utils;
 
-import fr.miage.fsgbd.bplustree.BPlusTree;
+import fr.miage.fsgbd.bplustree.BTreePlus;
 
 import java.io.*;
 	
 	public class BSerializer<K extends Comparable<K>, T>
 	{	   
-	  public BSerializer (BPlusTree<K,T> arbre, String path)
+	  public BSerializer (BTreePlus<K,T> arbre, String path)
 	  {	    
 	    try {
 	      FileOutputStream fichier = new FileOutputStream(path);

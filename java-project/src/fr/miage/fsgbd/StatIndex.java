@@ -1,5 +1,5 @@
 package fr.miage.fsgbd;
-import fr.miage.fsgbd.bplustree.BPlusTree;
+import fr.miage.fsgbd.bplustree.BTreePlus;
 import fr.miage.fsgbd.uistat.Stat;
 
 import java.io.*;
@@ -32,7 +32,7 @@ public class StatIndex {
 
     static Stat makeStat(int nbLine, int nbRandom, int degree) throws IOException {
 
-        BPlusTree<String,Integer> tree = new BPlusTree<>(degree);
+        BTreePlus<String,Integer> tree = new BTreePlus<>(degree);
         List<String> guid = new ArrayList<>();
         List<String> randomGuid = new ArrayList<>();
         FileReader reader = new FileReader("resource/myFile0.csv");

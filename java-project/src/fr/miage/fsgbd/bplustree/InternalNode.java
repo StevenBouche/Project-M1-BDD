@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class IndexNode<K extends Comparable<K>, T> extends Node<K,T> implements java.io.Serializable {
+public class InternalNode<K extends Comparable<K>, T> extends Node<K,T> implements java.io.Serializable {
 
 	// m nodes
 	protected ArrayList<Node<K,T>> children; // m+1 children
 
-	public IndexNode(K key, Node<K,T> child0, Node<K,T> child1, int m) {
+	public InternalNode(K key, Node<K,T> child0, Node<K,T> child1, int m) {
 		super(m);
 		isLeafNode = false;
 		keys = new ArrayList<K>();
@@ -19,7 +19,7 @@ public class IndexNode<K extends Comparable<K>, T> extends Node<K,T> implements 
 		children.add(child1);
 	}
 
-	public IndexNode(List<K> newKeys, List<Node<K,T>> newChildren, int m) {
+	public InternalNode(List<K> newKeys, List<Node<K,T>> newChildren, int m) {
 		super(m);
 		isLeafNode = false;
 		keys = new ArrayList<K>(newKeys);

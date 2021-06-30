@@ -5,12 +5,12 @@ import java.util.AbstractMap;
 import java.util.Map.Entry;
 import java.util.ArrayList;
 
-public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializable {
+public class BTreePlus<K extends Comparable<K>, T> implements java.io.Serializable {
 
 	public Node<K,T> root;
 	public int degree;
 
-	public BPlusTree(int d){
+	public BTreePlus(int d){
 		this.degree = d;
 	}
 
@@ -56,7 +56,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 	private LeafNode<K,T> searchFirstLeafNode(Node<K,T> node){
 		if(node.isLeafNode)
 			return (LeafNode<K,T>)node;
-		return searchFirstLeafNode(((IndexNode<K,T>)node).children.get(0));
+		return searchFirstLeafNode(((InternalNode<K,T>)node).children.get(0));
 	}
 	
 	private Node<K,T> treeSearch(Node<K,T> node, K key) {
@@ -65,7 +65,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 		} 
 		// The node is index node
 		else {
-			IndexNode<K,T> index = (IndexNode<K,T>)node;
+			InternalNode<K,T> index = (InternalNode<K,T>)node;
 			
 			// K < K1, return treeSearch(P0, K)
 			if(key.compareTo(index.keys.get(0)) < 0) {
@@ -105,7 +105,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 		if(newChildEntry == null) {
 			return;
 		} else {
-			IndexNode<K,T> newRoot = new IndexNode<K,T>(newChildEntry.getKey(), root, newChildEntry.getValue(), degree);
+			InternalNode<K,T> newRoot = new InternalNode<K,T>(newChildEntry.getKey(), root, newChildEntry.getValue(), degree);
 			root = newRoot;
 			return;
 		}
@@ -114,7 +114,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 	private Entry<K, Node<K,T>> getChildEntry(Node<K,T> node, Entry<K, Node<K,T>> entry, Entry<K, Node<K,T>> newChildEntry) {
 		if(!node.isLeafNode) {
 			// Choose subtree, find i such that Ki <= entry's key value < J(i+1)
-			IndexNode<K,T> index = (IndexNode<K,T>) node;
+			InternalNode<K,T> index = (InternalNode<K,T>) node;
 			int i = 0;
 			while(i < index.keys.size()) {
 				if(entry.getKey().compareTo(index.keys.get(i)) < 0) {
@@ -151,7 +151,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 					// Root was just split
 					if(index == root) {
 						// Create new node and make tree's root-node pointer point to newRoot
-						IndexNode<K,T> newRoot = new IndexNode<K,T>(newChildEntry.getKey(), root, newChildEntry.getValue(), degree);
+						InternalNode<K,T> newRoot = new InternalNode<K,T>(newChildEntry.getKey(), root, newChildEntry.getValue(), degree);
 						root = newRoot;
 						return null;
 					}
@@ -174,7 +174,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 			else {
 				newChildEntry = splitLeafNode(leaf);
 				if(leaf == root) {
-					IndexNode<K,T> newRoot = new IndexNode<K,T>(newChildEntry.getKey(), leaf, newChildEntry.getValue(), degree);
+					InternalNode<K,T> newRoot = new InternalNode<K,T>(newChildEntry.getKey(), leaf, newChildEntry.getValue(), degree);
 					root = newRoot;
 					return null;
 				}
@@ -214,7 +214,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 		return newChildEntry;
 	}
 
-	public Entry<K, Node<K,T>> splitIndexNode(IndexNode<K,T> index) {
+	public Entry<K, Node<K,T>> splitIndexNode(InternalNode<K,T> index) {
 		ArrayList<K> newKeys = new ArrayList<K>();
 		ArrayList<Node<K,T>> newChildren = new ArrayList<Node<K,T>>();
 		
@@ -234,7 +234,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 			index.children.remove(degree +1);
 		}
 
-		IndexNode<K,T> rightNode = new IndexNode<K,T>(newKeys, newChildren, degree);
+		InternalNode<K,T> rightNode = new InternalNode<K,T>(newKeys, newChildren, degree);
 		Entry<K, Node<K,T>> newChildEntry = new AbstractMap.SimpleEntry<K, Node<K,T>>(splitKey, rightNode);
 
 		return newChildEntry;
@@ -261,7 +261,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 		if(oldChildEntry == null) {
 			if(root.keys.size() == 0) {
 				if(!root.isLeafNode) {
-					root = ((IndexNode<K,T>) root).children.get(0);
+					root = ((InternalNode<K,T>) root).children.get(0);
 				}
 			}
 			return;
@@ -283,7 +283,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 			}
 			// Discard empty node
 			root.keys.remove(i);
-			((IndexNode<K,T>)root).children.remove(i+1);
+			((InternalNode<K,T>)root).children.remove(i+1);
 			return;
 		}
 	}
@@ -292,7 +292,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 			Entry<K, Node<K,T>> entry, Entry<K, Node<K,T>> oldChildEntry) {
 		if(!node.isLeafNode) {
 			// Choose subtree, find i such that Ki <= entry's key value < K(i+1)
-			IndexNode<K,T> index = (IndexNode<K,T>)node;
+			InternalNode<K,T> index = (InternalNode<K,T>)node;
 			int i = 0;
 			K entryKey = entry.getKey();
 			while(i < index.keys.size()) {
@@ -343,14 +343,14 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 					}
 					// Handle index underflow
 					int splitKeyPos;
-					IndexNode<K,T> parent = (IndexNode<K,T>)parentNode;
+					InternalNode<K,T> parent = (InternalNode<K,T>)parentNode;
 					
 					if(s > 0 && parent.children.get(s-1) != null) {
 						splitKeyPos = handleIndexNodeUnderflow(
-								(IndexNode<K,T>)parent.children.get(s-1), index, parent);
+								(InternalNode<K,T>)parent.children.get(s-1), index, parent);
 					} else {
 						splitKeyPos = handleIndexNodeUnderflow(
-								index, (IndexNode<K,T>)parent.children.get(s+1), parent);
+								index, (InternalNode<K,T>)parent.children.get(s+1), parent);
 					}
 					// S has extra entries, set oldChildentry to null, return
 					if(splitKeyPos == -1) {
@@ -392,9 +392,9 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 				K parentKey = parentNode.keys.get(0);
 				
 				if(leaf.previousLeaf != null && firstKey.compareTo(parentKey) >= 0) {
-					splitKeyPos = handleLeafNodeUnderflow(leaf.previousLeaf, leaf, (IndexNode<K,T>)parentNode);
+					splitKeyPos = handleLeafNodeUnderflow(leaf.previousLeaf, leaf, (InternalNode<K,T>)parentNode);
 				} else {
-					splitKeyPos = handleLeafNodeUnderflow(leaf, leaf.nextLeaf, (IndexNode<K,T>)parentNode);
+					splitKeyPos = handleLeafNodeUnderflow(leaf, leaf.nextLeaf, (InternalNode<K,T>)parentNode);
 				}
 				// S has extra entries, set oldChildEntry to null, return
 				if(splitKeyPos == -1) {
@@ -411,7 +411,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 	}
 
 	public int handleLeafNodeUnderflow(LeafNode<K,T> left, LeafNode<K,T> right,
-			IndexNode<K,T> parent) {
+			InternalNode<K,T> parent) {
 		// Find entry in parent for node on right
 		int i = 0;
 		K rKey = right.keys.get(0);
@@ -466,8 +466,8 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 		}
 	}
 
-	public int handleIndexNodeUnderflow(IndexNode<K,T> leftIndex,
-			IndexNode<K,T> rightIndex, IndexNode<K,T> parent) {
+	public int handleIndexNodeUnderflow(InternalNode<K,T> leftIndex,
+										InternalNode<K,T> rightIndex, InternalNode<K,T> parent) {
 		// Find entry in parent for node on right
 		int i = 0;
 		K rKey = rightIndex.keys.get(0);
@@ -531,10 +531,10 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 	private DefaultMutableTreeNode bArbreToJTree(Node<K,T> node) {
 
 		StringBuilder txt = new StringBuilder();
-		boolean internalInstance = node instanceof IndexNode;
+		boolean internalInstance = node instanceof InternalNode;
 
 		if(internalInstance){
-			for (K key : ((IndexNode<K,T>)node).keys){
+			for (K key : ((InternalNode<K,T>)node).keys){
 				txt.append("["+key.toString()+"]").append(" ");
 			}
 		} else {
@@ -548,7 +548,7 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 		DefaultMutableTreeNode racine2 = new DefaultMutableTreeNode(txt.toString(), true);
 
 		if(internalInstance) {
-			for (Node<K,T> fil : ((IndexNode<K,T>) node).children) {
+			for (Node<K,T> fil : ((InternalNode<K,T>) node).children) {
 				if (fil == null)
 					break;
 				else racine2.add(bArbreToJTree(fil));

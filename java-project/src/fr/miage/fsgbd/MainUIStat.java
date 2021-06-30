@@ -1,6 +1,6 @@
 package fr.miage.fsgbd;
 
-import fr.miage.fsgbd.bplustree.BPlusTree;
+import fr.miage.fsgbd.bplustree.BTreePlus;
 import fr.miage.fsgbd.uistat.Stat;
 import fr.miage.fsgbd.uistat.StatTableModel;
 import fr.miage.fsgbd.uistat.UIStat;
@@ -32,7 +32,7 @@ public class MainUIStat {
         private ArrayList<String> filesLine;
         private ArrayList<String[]> filesLineSplit;
 
-        BPlusTree<String,Integer> tree;
+        BTreePlus<String,Integer> tree;
 
         private StatTableModel model;
 
@@ -72,7 +72,7 @@ public class MainUIStat {
         }
 
         private void initTree(){
-            this.tree = new BPlusTree<>(this.nbDegree);
+            this.tree = new BTreePlus<>(this.nbDegree);
             for(int i = 0; i < this.nbLine; i++){
                 String[] str = filesLineSplit.get(i);
                 tree.insert(str[1], Integer.parseInt(str[0]));
@@ -175,7 +175,7 @@ public class MainUIStat {
         private Runnable taskSearch(){
             return () -> {
 
-                BPlusTree<String,Integer> treeThread = new BPlusTree<>(this.nbDegree);
+                BTreePlus<String,Integer> treeThread = new BTreePlus<>(this.nbDegree);
                 List<String> guid = new ArrayList<>();
                 List<String> randomGuid = new ArrayList<>();
 

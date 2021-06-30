@@ -2,7 +2,7 @@ package fr.miage.fsgbd.uibtree;
 
 import fr.miage.fsgbd.utils.BDeserializer;
 import fr.miage.fsgbd.utils.BSerializer;
-import fr.miage.fsgbd.bplustree.BPlusTree;
+import fr.miage.fsgbd.bplustree.BTreePlus;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  */
 public class GUI extends JFrame implements ActionListener {
 
-    BPlusTree<Integer,Integer> bt;
+    BTreePlus<Integer,Integer> bt;
     private JButton buttonClean, buttonRemove, buttonLoad, buttonSave, buttonAddMany, buttonAddItem, buttonRefresh;
     private JTextField txtNbreItem, txtNbreSpecificItem, txtU, txtFile, removeSpecific;
     private final JTree tree = new JTree();
@@ -38,7 +38,7 @@ public class GUI extends JFrame implements ActionListener {
                 if (Integer.parseInt(txtU.getText()) < 2)
                     System.out.println("Impossible de cr?er un arbre dont le nombre de cl?s est inf?rieur ? 2.");
                 else
-                    bt = new BPlusTree<Integer,Integer>(Integer.parseInt(txtU.getText()));
+                    bt = new BTreePlus<Integer,Integer>(Integer.parseInt(txtU.getText()));
             } else if (e.getSource() == buttonSave) {
                 BSerializer<Integer,Integer> save = new BSerializer<Integer,Integer>(bt, txtFile.getText());
             }else if (e.getSource() == buttonRefresh) {
@@ -46,7 +46,7 @@ public class GUI extends JFrame implements ActionListener {
             }
         } else {
             if (bt == null)
-                bt = new BPlusTree<Integer,Integer>(Integer.parseInt(txtU.getText()));
+                bt = new BTreePlus<Integer,Integer>(Integer.parseInt(txtU.getText()));
 
             if (e.getSource() == buttonAddMany) {
                 for (int i = 0; i < Integer.parseInt(txtNbreItem.getText()); i++) {
