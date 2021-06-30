@@ -1,4 +1,4 @@
-package fr.miage.fsgbd;
+package fr.miage.fsgbd.uistat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -31,5 +31,21 @@ public class Stat {
     public static void save(String path, List<Stat> data) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(Paths.get(path).toFile(), data);
+    }
+
+    @Override
+    public String toString() {
+        return
+                "nbLine=" + nbLine +
+                "\n nbSearch=" + nbSearch +
+                "\n degree=" + degree +
+                "\n minTree=" + minTree +
+                "\n maxTree=" + maxTree +
+                "\n sumTree=" + sumTree +
+                "\n meanTree=" + meanTree +
+                "\n minLinear=" + minLinear +
+                "\n maxLinear=" + maxLinear +
+                "\n sumLinear=" + sumLinear +
+                "\n meanLinear=" + meanLinear;
     }
 }

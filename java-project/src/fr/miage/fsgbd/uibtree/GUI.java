@@ -1,5 +1,7 @@
-package fr.miage.fsgbd;
+package fr.miage.fsgbd.uibtree;
 
+import fr.miage.fsgbd.utils.BDeserializer;
+import fr.miage.fsgbd.utils.BSerializer;
 import fr.miage.fsgbd.bplustree.BPlusTree;
 
 import javax.swing.*;
@@ -8,7 +10,6 @@ import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 /**
  * @author Galli Gregory, Mopolo Moke Gabriel

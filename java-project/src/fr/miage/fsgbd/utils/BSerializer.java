@@ -1,4 +1,4 @@
-package fr.miage.fsgbd;
+package fr.miage.fsgbd.utils;
 
 import fr.miage.fsgbd.bplustree.BPlusTree;
 

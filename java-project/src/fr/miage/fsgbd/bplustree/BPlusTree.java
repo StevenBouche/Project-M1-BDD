@@ -535,12 +535,12 @@ public class BPlusTree<K extends Comparable<K>, T> implements java.io.Serializab
 
 		if(internalInstance){
 			for (K key : ((IndexNode<K,T>)node).keys){
-				txt.append(key.toString()).append(" ");
+				txt.append("["+key.toString()+"]").append(" ");
 			}
 		} else {
 			LeafNode<K,T> lNode = (LeafNode<K,T>) node;
 			for(int i = 0; i < lNode.keys.size(); i++){
-				String str = "key="+lNode.keys.get(i)+",value="+lNode.values.get(i);
+				String str = "[key="+lNode.keys.get(i)+",value="+lNode.values.get(i)+"]";
 				txt.append(str).append(" ");
 			}
 		}
