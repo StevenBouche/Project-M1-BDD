@@ -15,12 +15,20 @@ Rapport :
 
 ## Partie 2 : Projetsur  les  thématiques  liées  à l’indexation et la recherche
 
-Projet dans le dossier : java
+Projet dans le dossier : java-project
 
 Implémentation B+ tree avec noeud (contenant les keys) et feuilles (association des keys avec valeur).
 Mis en place de statistiques sur le temps lié à la compléxité des recherches. Les statistiques ont étais fais sur une base de 5000 recherches pour chaque méthodes avec un degré de 2 pour le B+ tree. 
 
+Statistiques sur :
 
+- Recherche par index dans l'arbre
+- Recherche séquentiel dans l'arbre (en mémoire via l'arbre)
+- Recherche directement dans le fichier (accès au fichier)
+
+Tous les temps sont en miliseconde, les indexes pour la recherche sont tirés de façon aléatoire. Le programme des stats est le main situé dans la classe StatIndex. 
+
+Nos résultats :
 
 ```json
 [
