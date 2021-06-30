@@ -40,7 +40,7 @@ Screenshot de l'interface du programme MainUIStat :
 
 ![Screenshot](img/UI.png)
 
-Nos résultats avec le programme en ligne de commande :
+Nos résultats avec le programme en ligne de commande (nous pouvons voir avec l'augmentation du nombre de ligne pour 5000 recherches, l'augmentation du temps de recherche linéaire ou directement dans le fichier, tandis que la recherche par index ne change pas) :
 
 ```json
 [
