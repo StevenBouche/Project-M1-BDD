@@ -17,7 +17,10 @@ Rapport :
 
 Projet dans le dossier : java-project
 
-Implémentation B+ tree avec noeud (contenant les keys) et feuilles (association des keys avec valeur).
+Implémentation B+ tree avec noeud (contenant les keys) et feuilles (association des keys avec valeur). Chaque feuille ayant une référence sur la feuille suivante pour permettre une recherche séquentielle. 
+
+![Screenshot](img/Bplustree.png)
+
 Mis en place de statistiques sur le temps lié à la compléxité des recherches. Les statistiques ont étais fais sur une base de 5000 recherches pour chaque méthodes avec un degré de 2 pour le B+ tree. 
 
 Statistiques sur :
@@ -28,7 +31,16 @@ Statistiques sur :
 
 Tous les temps sont en miliseconde, les indexes pour la recherche sont tirés de façon aléatoire. Le programme des stats est le main situé dans la classe StatIndex. 
 
-Nos résultats :
+Il est soit possible d'éxecuter :
+
+- le main StatIndex afin de définir plusieurs éxecutions de recherche dans un programme en ligne de commande. 
+- le main MainUIStat pour pouvoir avoir des statistiques sur le temps d'éxecution en fonction du nombre de ligne et d'un nombre de recherche définit par l'utilisateur sur un fichier de 200 000 lignes au maximum. 
+
+Screenshot de l'interface du programme MainUIStat :
+
+![Screenshot](img/UI.png)
+
+Nos résultats avec le programme en ligne de commande :
 
 ```json
 [
